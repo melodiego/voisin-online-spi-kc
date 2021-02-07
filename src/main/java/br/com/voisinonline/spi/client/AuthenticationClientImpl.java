@@ -33,7 +33,7 @@ public class AuthenticationClientImpl implements AuthenticationClient {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    logger.debugf("Authentication API is Successful. UserId[%s]", authentication.getUserId());
+                    logger.debugf("Authentication API is Successful. UserId[%s]", authentication.getMail());
                 } else {
                     try {
                         logger.errorf("Authentication API is not Successful - errorBody [%s]", response.errorBody().string());

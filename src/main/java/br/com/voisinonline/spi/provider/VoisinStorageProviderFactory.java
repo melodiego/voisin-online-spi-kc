@@ -1,6 +1,7 @@
 package br.com.voisinonline.spi.provider;
 
 import br.com.voisinonline.spi.client.AuthenticationClient;
+import br.com.voisinonline.spi.client.AuthenticationClientImpl;
 import br.com.voisinonline.spi.client.UserClient;
 import br.com.voisinonline.spi.client.UserClientImpl;
 import okhttp3.OkHttpClient;
@@ -15,9 +16,11 @@ import org.keycloak.provider.ProviderConfigurationBuilder;
 import org.keycloak.storage.UserStorageProviderFactory;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import static br.com.voisinonline.spi.provider.VoisinStorageConfiguration.*;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static br.com.voisinonline.spi.provider.VoisinStorageConfiguration.*;
 
 public class VoisinStorageProviderFactory implements UserStorageProviderFactory<VoisinStorageProvider> {
 
@@ -103,7 +106,7 @@ public class VoisinStorageProviderFactory implements UserStorageProviderFactory<
 
             Retrofit retrofit = createRetrofit(VoisinStorageConfiguration);
 
-            this.authenticationClient = new AuthenticationClient(retrofit);
+            this.authenticationClient = new AuthenticationClientImpl(retrofit);
             this.userClient = new UserClientImpl(retrofit);
 
             logger.debugf("updateConfiguration - retrofit[%s] - authenticationClient[%s] - userClient[%s]",
@@ -131,10 +134,9 @@ public class VoisinStorageProviderFactory implements UserStorageProviderFactory<
 
     private VoisinStorageConfiguration createVoisinStorageConfiguration(ComponentModel componentModel) {
         VoisinStorageConfiguration VoisinStorageConfiguration = new VoisinStorageConfiguration(
-                componentModel.get(VoisinStorageConfiguration.AUTH_SERVICE_URL),
-                componentModel.get(VoisinStorageConfiguration.CREDENTIAL_TYPE_NAME),
-                Long.parseLong(componentModel.get(VoisinStorageConfiguration.CONNECTION_TIMEOUT)),
-                Long.parseLong(componentModel.get(VoisinStorageConfiguration.READ_TIMEOUT)));
+                componentModel.get(AUTH_SERVICE_URL),
+                Long.parseLong(componentModel.get(CONNECTION_TIMEOUT)),
+                Long.parseLong(componentModel.get(READ_TIMEOUT)));
 
         logger.debugf("createVoisinStorageConfiguration - creating VoisinStorageConfiguration [%s]", VoisinStorageConfiguration);
 

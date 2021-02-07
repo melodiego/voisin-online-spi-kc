@@ -1,0 +1,12 @@
+br/com/voisinonline/spi/client/UserClientImpl$1.class
+br/com/voisinonline/spi/client/AuthenticationClientImpl.class
+br/com/voisinonline/spi/client/UserClientImpl.class
+br/com/voisinonline/spi/dto/AuthenticationFormDTO.class
+br/com/voisinonline/spi/client/AuthenticationClient.class
+br/com/voisinonline/spi/client/AuthenticationClientImpl$1.class
+br/com/voisinonline/spi/provider/VoisinStorageConfiguration.class
+br/com/voisinonline/spi/dto/UserDTO.class
+br/com/voisinonline/spi/provider/VoisinStorageProviderFactory.class
+br/com/voisinonline/spi/client/UserClient.class
+br/com/voisinonline/spi/dto/ErrorMessageDTO.class
+br/com/voisinonline/spi/provider/VoisinStorageProvider.class
