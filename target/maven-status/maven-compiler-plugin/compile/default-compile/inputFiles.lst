@@ -1,0 +1,8 @@
+/home/diegomelo/Development/IdeaProjects/voisin-online-spi-kc/src/main/java/br/com/voisinonline/spi/dto/ErrorMessageDTO.java
+/home/diegomelo/Development/IdeaProjects/voisin-online-spi-kc/src/main/java/br/com/voisinonline/spi/dto/AuthenticationFormDTO.java
+/home/diegomelo/Development/IdeaProjects/voisin-online-spi-kc/src/main/java/br/com/voisinonline/spi/provider/VoisinStorageProvider.java
+/home/diegomelo/Development/IdeaProjects/voisin-online-spi-kc/src/main/java/br/com/voisinonline/spi/client/UserClientImpl.java
+/home/diegomelo/Development/IdeaProjects/voisin-online-spi-kc/src/main/java/br/com/voisinonline/spi/client/UserClient.java
+/home/diegomelo/Development/IdeaProjects/voisin-online-spi-kc/src/main/java/br/com/voisinonline/spi/dto/UserDTO.java
+/home/diegomelo/Development/IdeaProjects/voisin-online-spi-kc/src/main/java/br/com/voisinonline/spi/provider/VoisinStorageProviderFactory.java
+/home/diegomelo/Development/IdeaProjects/voisin-online-spi-kc/src/main/java/br/com/voisinonline/spi/provider/VoisinStorageConfiguration.java

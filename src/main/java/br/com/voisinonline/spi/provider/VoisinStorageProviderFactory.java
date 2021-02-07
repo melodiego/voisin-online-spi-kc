@@ -1,7 +1,8 @@
 package br.com.voisinonline.spi.provider;
 
-import io.sicredi.authcorp.spi.client.AuthenticationClient;
-import io.sicredi.authcorp.spi.client.PersonClient;
+import br.com.voisinonline.spi.client.AuthenticationClient;
+import br.com.voisinonline.spi.client.UserClient;
+import br.com.voisinonline.spi.client.UserClientImpl;
 import okhttp3.OkHttpClient;
 import org.jboss.logging.Logger;
 import org.keycloak.Config;
@@ -14,45 +15,39 @@ import org.keycloak.provider.ProviderConfigurationBuilder;
 import org.keycloak.storage.UserStorageProviderFactory;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+import static br.com.voisinonline.spi.provider.VoisinStorageConfiguration.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class VoisinStorageProviderFactory implements UserStorageProviderFactory<SicStorageProvider> {
+public class VoisinStorageProviderFactory implements UserStorageProviderFactory<VoisinStorageProvider> {
 
-    private static final Logger logger = Logger.getLogger(SicStorageProviderFactory.class);
-    private static final String PROVIDER_ID = "keycloak-sicredi-customer-federation";
+    private static final Logger logger = Logger.getLogger(VoisinStorageProviderFactory.class);
+    private static final String PROVIDER_ID = "keycloak-Voisinredi-customer-federation";
 
-    private SicStorageConfiguration sicStorageConfiguration;
+    private VoisinStorageConfiguration VoisinStorageConfiguration;
 
     private AuthenticationClient authenticationClient;
-    private PersonClient personClient;
+    private UserClient userClient;
 
     private boolean dirtyConfiguration = true;
 
     protected static final List<ProviderConfigProperty> configMetadata = ProviderConfigurationBuilder.create()
-            .property().name(SicStorageConfiguration.AUTH_SERVICE_URL)
+            .property().name(AUTH_SERVICE_URL)
             .type(ProviderConfigProperty.STRING_TYPE)
             .label("Auth Service URL")
-            .defaultValue(SicStorageConfiguration.AUTH_SERVICE_URL_DEFAULT)
-            .helpText("Auth Service URL Ex.: " + SicStorageConfiguration.AUTH_SERVICE_URL_DEFAULT)
+            .defaultValue(AUTH_SERVICE_URL_DEFAULT)
+            .helpText("Auth Service URL Ex.: " + AUTH_SERVICE_URL_DEFAULT)
             .add()
-            .property().name(SicStorageConfiguration.CREDENTIAL_TYPE_NAME)
-            .type(ProviderConfigProperty.STRING_TYPE)
-            .label("Credential Type Name")
-            .defaultValue(SicStorageConfiguration.CREDENTIAL_TYPE_NAME_DEFAULT)
-            .helpText("CredentialType  Name")
-            .add()
-            .property().name(SicStorageConfiguration.CONNECTION_TIMEOUT)
+            .property().name(CONNECTION_TIMEOUT)
             .type(ProviderConfigProperty.STRING_TYPE)
             .label("Connection timeout in ms")
-            .defaultValue(SicStorageConfiguration.CONNECTION_TIMEOUT_DEFAULT_VALUE)
+            .defaultValue(CONNECTION_TIMEOUT_DEFAULT_VALUE)
             .helpText("Connection timeout to Retrofit")
             .add()
-            .property().name(SicStorageConfiguration.READ_TIMEOUT)
+            .property().name(READ_TIMEOUT)
             .type(ProviderConfigProperty.STRING_TYPE)
             .label("Read timeout in ms")
-            .defaultValue(SicStorageConfiguration.READ_TIMEOUT_DEFAULT_VALUE)
+            .defaultValue(READ_TIMEOUT_DEFAULT_VALUE)
             .helpText("Read timeout to Retrofit")
             .add()
             .build();
@@ -75,15 +70,15 @@ public class VoisinStorageProviderFactory implements UserStorageProviderFactory<
     }
 
     @Override
-    public SicStorageProvider create(KeycloakSession session, ComponentModel model) {
+    public VoisinStorageProvider create(KeycloakSession session, ComponentModel model) {
         logger.debugf("create - Creating component with model - session[%s] - model[%s]", session, model);
         
         updateConfiguration(model);
 
-        logger.debugf("create - sicStorageConfiguration[%s] - authenticationClient[%s] - personClient[%s]", 
-            sicStorageConfiguration, authenticationClient, personClient);
+        logger.debugf("create - VoisinStorageConfiguration[%s] - authenticationClient[%s] - personClient[%s]", 
+            VoisinStorageConfiguration, authenticationClient, userClient);
 
-        return new SicStorageProvider(session, model, sicStorageConfiguration, authenticationClient, personClient);
+        return new VoisinStorageProvider(session, model, VoisinStorageConfiguration, authenticationClient, userClient);
     }
 
     @Override
@@ -99,20 +94,20 @@ public class VoisinStorageProviderFactory implements UserStorageProviderFactory<
         if (dirtyConfiguration) {
             dirtyConfiguration = false;
 
-            SicStorageConfiguration newSicStorageConfiguration = createSicStorageConfiguration(model);
+            VoisinStorageConfiguration newVoisinStorageConfiguration = createVoisinStorageConfiguration(model);
 
             logger.debugf("updateConfiguration - old[%s] - new[%s]", 
-            sicStorageConfiguration, newSicStorageConfiguration);
+            VoisinStorageConfiguration, newVoisinStorageConfiguration);
 
-            this.sicStorageConfiguration = newSicStorageConfiguration;
+            this.VoisinStorageConfiguration = newVoisinStorageConfiguration;
 
-            Retrofit retrofit = createRetrofit(sicStorageConfiguration);
+            Retrofit retrofit = createRetrofit(VoisinStorageConfiguration);
 
             this.authenticationClient = new AuthenticationClient(retrofit);
-            this.personClient = new PersonClient(retrofit);
+            this.userClient = new UserClientImpl(retrofit);
 
-            logger.debugf("updateConfiguration - retrofit[%s] - authenticationClient[%s] - personClient[%s]", 
-                retrofit, authenticationClient, personClient);
+            logger.debugf("updateConfiguration - retrofit[%s] - authenticationClient[%s] - userClient[%s]",
+                retrofit, authenticationClient, userClient);
         }
     }
 
@@ -134,29 +129,28 @@ public class VoisinStorageProviderFactory implements UserStorageProviderFactory<
         logger.debugf("validateConfiguration - Validating %s configuration on init [%s]", PROVIDER_ID, config);
     }
 
-    private SicStorageConfiguration createSicStorageConfiguration(ComponentModel componentModel) {
-        SicStorageConfiguration sicStorageConfiguration = new SicStorageConfiguration(
-                componentModel.get(SicStorageConfiguration.AUTH_SERVICE_URL),
-                componentModel.get(SicStorageConfiguration.CREDENTIAL_TYPE_NAME),
-                Long.parseLong(componentModel.get(SicStorageConfiguration.CONNECTION_TIMEOUT)),
-                Long.parseLong(componentModel.get(SicStorageConfiguration.READ_TIMEOUT)));
+    private VoisinStorageConfiguration createVoisinStorageConfiguration(ComponentModel componentModel) {
+        VoisinStorageConfiguration VoisinStorageConfiguration = new VoisinStorageConfiguration(
+                componentModel.get(VoisinStorageConfiguration.AUTH_SERVICE_URL),
+                componentModel.get(VoisinStorageConfiguration.CREDENTIAL_TYPE_NAME),
+                Long.parseLong(componentModel.get(VoisinStorageConfiguration.CONNECTION_TIMEOUT)),
+                Long.parseLong(componentModel.get(VoisinStorageConfiguration.READ_TIMEOUT)));
 
-        logger.debugf("createSicStorageConfiguration - creating sicStorageConfiguration [%s]", sicStorageConfiguration);
+        logger.debugf("createVoisinStorageConfiguration - creating VoisinStorageConfiguration [%s]", VoisinStorageConfiguration);
 
-        return sicStorageConfiguration;
+        return VoisinStorageConfiguration;
     }
 
-    private Retrofit createRetrofit(SicStorageConfiguration sicStorageConfiguration) {
+    private Retrofit createRetrofit(VoisinStorageConfiguration VoisinStorageConfiguration) {
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .readTimeout(sicStorageConfiguration.getReadTimeout(), TimeUnit.MILLISECONDS)
-                .connectTimeout(sicStorageConfiguration.getConnectionTimeout(), TimeUnit.MILLISECONDS)
+                .readTimeout(VoisinStorageConfiguration.getReadTimeout(), TimeUnit.MILLISECONDS)
+                .connectTimeout(VoisinStorageConfiguration.getConnectionTimeout(), TimeUnit.MILLISECONDS)
                 .build();
 
         return new Retrofit.Builder()
-                .baseUrl(sicStorageConfiguration.getAuthServiceUrl())
+                .baseUrl(VoisinStorageConfiguration.getAuthServiceUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
     }
-
 }
