@@ -35,11 +35,11 @@ public class VoisinStorageProviderFactory implements UserStorageProviderFactory<
     private boolean dirtyConfiguration = true;
 
     protected static final List<ProviderConfigProperty> configMetadata = ProviderConfigurationBuilder.create()
-            .property().name(AUTH_SERVICE_URL)
+            .property().name(VOISIN_SERVICE_URL)
             .type(ProviderConfigProperty.STRING_TYPE)
             .label("Auth Service URL")
-            .defaultValue(AUTH_SERVICE_URL_DEFAULT)
-            .helpText("Auth Service URL Ex.: " + AUTH_SERVICE_URL_DEFAULT)
+            .defaultValue(VOISIN)
+            .helpText("Auth Service URL Ex.: " + VOISIN)
             .add()
             .property().name(CONNECTION_TIMEOUT)
             .type(ProviderConfigProperty.STRING_TYPE)
@@ -134,7 +134,7 @@ public class VoisinStorageProviderFactory implements UserStorageProviderFactory<
 
     private VoisinStorageConfiguration createVoisinStorageConfiguration(ComponentModel componentModel) {
         VoisinStorageConfiguration VoisinStorageConfiguration = new VoisinStorageConfiguration(
-                componentModel.get(AUTH_SERVICE_URL),
+                componentModel.get(VOISIN_SERVICE_URL),
                 Long.parseLong(componentModel.get(CONNECTION_TIMEOUT)),
                 Long.parseLong(componentModel.get(READ_TIMEOUT)));
 
