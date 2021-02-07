@@ -25,7 +25,7 @@ import static br.com.voisinonline.spi.provider.VoisinStorageConfiguration.*;
 public class VoisinStorageProviderFactory implements UserStorageProviderFactory<VoisinStorageProvider> {
 
     private static final Logger logger = Logger.getLogger(VoisinStorageProviderFactory.class);
-    private static final String PROVIDER_ID = "keycloak-Voisinredi-customer-federation";
+    private static final String PROVIDER_ID = "keycloak-voisin-customer-federation";
 
     private VoisinStorageConfiguration VoisinStorageConfiguration;
 

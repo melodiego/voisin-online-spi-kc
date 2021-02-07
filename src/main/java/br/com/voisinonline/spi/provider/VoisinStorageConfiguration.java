@@ -5,7 +5,8 @@ import java.util.Objects;
 public class VoisinStorageConfiguration {
 
     public static final String VOISIN_SERVICE_URL = "voisinServiceUrl";
-    public static final String VOISIN = "https://voisin-online-login.dev.voisin.cloud/";
+//    public static final String VOISIN = "https://voisin-online-login.dev.voisin.cloud/";
+    public static final String VOISIN = "http://localhost8081/voisin-online";
     public static final String CONNECTION_TIMEOUT = "connectionTimeOut";
     public static final String CONNECTION_TIMEOUT_DEFAULT_VALUE = "2000";
     public static final String READ_TIMEOUT = "readTimeOut";

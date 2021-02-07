@@ -7,6 +7,6 @@ import retrofit2.http.POST;
 
 public interface AuthenticationClient {
 
-    @POST("/authcorp/authentication")
+    @POST("/voisin-online/authentication")
     Call<Void> authentication(@Body AuthenticationFormDTO authenticationFormDTO);
 }
