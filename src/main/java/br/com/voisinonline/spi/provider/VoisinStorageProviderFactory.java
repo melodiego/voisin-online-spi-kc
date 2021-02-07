@@ -37,9 +37,9 @@ public class VoisinStorageProviderFactory implements UserStorageProviderFactory<
     protected static final List<ProviderConfigProperty> configMetadata = ProviderConfigurationBuilder.create()
             .property().name(VOISIN_SERVICE_URL)
             .type(ProviderConfigProperty.STRING_TYPE)
-            .label("Auth Service URL")
+            .label("Voisin Online Service URL")
             .defaultValue(VOISIN)
-            .helpText("Auth Service URL Ex.: " + VOISIN)
+            .helpText("Voisin Online Service URL Ex.: " + VOISIN)
             .add()
             .property().name(CONNECTION_TIMEOUT)
             .type(ProviderConfigProperty.STRING_TYPE)
@@ -150,7 +150,7 @@ public class VoisinStorageProviderFactory implements UserStorageProviderFactory<
                 .build();
 
         return new Retrofit.Builder()
-                .baseUrl(VoisinStorageConfiguration.getAuthServiceUrl())
+                .baseUrl(VoisinStorageConfiguration.getVoisinServiceUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();

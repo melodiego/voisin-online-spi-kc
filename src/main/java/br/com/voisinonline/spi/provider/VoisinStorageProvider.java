@@ -66,8 +66,8 @@ public class VoisinStorageProvider
     public boolean isValid(RealmModel realm, UserModel user, CredentialInput input) {
         try {
             String clientId = this.session.getContext().getClient().getClientId();
-            logger.debugf("IsValid[realm=%s][client=%s][user=%s][credentials=%s]", realm.getId(), clientId,
-                    user.getUsername(), input.getType());
+            logger.debugf("IsValid[realm=%s][client=%s][user=%s]", realm.getId(), clientId,
+                    user.getUsername());
             String username = user.getUsername();
             String password = input.getChallengeResponse();
 

@@ -12,20 +12,20 @@ public class VoisinStorageConfiguration {
     public static final String READ_TIMEOUT = "readTimeOut";
     public static final String READ_TIMEOUT_DEFAULT_VALUE = "2000";
 
-    private String authServiceUrl;
+    private String voisinServiceUrl;
     private Long connectionTimeout;
     private Long readTimeout;
 
     public VoisinStorageConfiguration(String authServiceUrl,
                                       Long connectionTimeout,
                                       Long readTimeout) {
-        this.authServiceUrl = authServiceUrl;
+        this.voisinServiceUrl = authServiceUrl;
         this.connectionTimeout = connectionTimeout;
         this.readTimeout = readTimeout;
     }
 
-    public String getAuthServiceUrl() {
-        return authServiceUrl;
+    public String getVoisinServiceUrl() {
+        return voisinServiceUrl;
     }
 
     public Long getConnectionTimeout() {
@@ -41,20 +41,20 @@ public class VoisinStorageConfiguration {
         if (this == o) return true;
         if (!(o instanceof VoisinStorageConfiguration)) return false;
         VoisinStorageConfiguration that = (VoisinStorageConfiguration) o;
-        return Objects.equals(authServiceUrl, that.authServiceUrl) &&
+        return Objects.equals(voisinServiceUrl, that.voisinServiceUrl) &&
                 Objects.equals(connectionTimeout, that.connectionTimeout) &&
                 Objects.equals(readTimeout, that.readTimeout);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(authServiceUrl, connectionTimeout, readTimeout);
+        return Objects.hash(voisinServiceUrl, connectionTimeout, readTimeout);
     }
 
     @Override
     public String toString() {
         return "VoisinStorageConfiguration{" +
-                "authServiceUrl='" + authServiceUrl + '\'' +
+                "voisinServiceUrl='" + voisinServiceUrl + '\'' +
                 ", connectionTimeout=" + connectionTimeout +
                 ", readTimeout=" + readTimeout +
                 '}';
